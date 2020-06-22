@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor  _httpContextAccessor
+@using DapperUtilTool.Extensions;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetLoginUser</title>
+</head>
+<body>
+    <form role="form" enctype="application/x-www-form-urlencoded" method="post"
+          class="form form-horizontal" id="form-add">
+        @if (string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Session.Get<string>("UserName")))
+        {
+            <div><label>用户名：<input type="text" name="UserName" /></label><button type="submit">登录</button></div>
+        }
+        else
+        {
+            <div><label>用户名：@(_httpContextAccessor.HttpContext.Session.Get<string>("UserName"))</label><a href="/Home/SignOut">退出</a></div>
+        }
+    </form>
+</body>
+</html>
